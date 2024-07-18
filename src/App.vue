@@ -75,7 +75,7 @@
           </button>
           <button id="sidenav__list" @click="openList()" v-bind:class="{ sidebtn_active: pages.listPageVisibility }">
             <div class="icon-list" v-bind:class="{ iconlist_active: pages.listPageVisibility }"></div>Список
-            контроллеров
+            устройств
           </button>
           <!-- <button id="sidenav__subscription" @click="openSubscription()"
                       v-bind:class="{ sidebtn_active: pages.subscriptionPageVisibility }">
@@ -534,7 +534,7 @@ export default {
       this.pages.reportsPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
     },
-    openMainControllerPage(id) { // открыть отдельную страницу с контроллером
+    openMainControllerPage(id) { // открыть отдельную страницу с устройством
       this.controllerId = id;
       for (let page in this.pages) {
         this.pages[page] = false;
@@ -573,7 +573,7 @@ export default {
 }
 
 .form input {
-  padding: 12px 8px 12px 4px;
+  padding: 12px 8px 12px 8px;
   color: #373535;
   font-size: 14px;
   margin-bottom: 8px;
@@ -637,7 +637,7 @@ input::placeholder {
 }
 
 .personalarea_active {
-  background-color: #293B5F !important;
+  background-color: #1976D2 !important;
   color: #F8F6F4 !important;
 }
 
@@ -661,7 +661,7 @@ input::placeholder {
 
 .reg-title {
   text-align: center;
-  color: white;
+  color: #1976d2;
   margin-bottom: 56px;
   font-size: 20px;
 }
@@ -669,7 +669,7 @@ input::placeholder {
 /* структура страниц */
 
 .page-content__container {
-  padding: 80px 36px 24px 36px;
+  padding: 82px 24px 24px 24px;
   background-color: #EEEEEE;
   position: relative;
 }
@@ -723,12 +723,12 @@ input::placeholder {
 @media (min-width: 1700px) {
   .form input {
     font-size: 16px;
-    padding: 14px 8px 14px 4px;
+    padding: 14px 8px 14px 8px;
   }
 
   .form button {
     font-size: 16px;
-    padding: 14px 0;
+    height: 48px;
   }
 
   .last-input {

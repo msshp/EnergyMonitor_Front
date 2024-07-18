@@ -3,8 +3,9 @@
         <td @click="openControllerPage(controller.id)" class="tr-id">{{ controller.id }}</td>
         <td @click="openControllerPage(controller.id)" class="tr-name"> {{ controller.sn }}</td>
         <td @click="openControllerPage(controller.id)">{{ controller.name }}</td>
-        <td @click="openControllerPage(controller.id)">{{ controller.status.bat_v }}</td>
-        <td @click="openControllerPage(controller.id)">{{ controller.status.dbi }}</td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_v }}</td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_p }}</td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.count_power_A }}</td>
         <td @click="openControllerPage(controller.id)">{{ controller.status.created_at }}</td>
         <td @click="openControllerPage(controller.id)">{{ controller.status.event }}</td>
         <td v-if="access" class="controller-delete__container" @click="deleteController(controller.id)">
@@ -65,11 +66,15 @@ export default {
 }
 
 .controller-delete {
-    background-image: url(../../img/account/basket.svg);
+    background-image: url(../../img/basket.svg);
     padding: 0 20px 0 0 !important;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     height: 30px;
+}
+
+.controller-delete:hover {
+    background-image: url(../../img/basket-hover.svg);
 }
 </style>

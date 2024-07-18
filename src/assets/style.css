@@ -168,8 +168,9 @@ button {
 .delta {
     background-image: url(../img/delta.svg);
     background-repeat: no-repeat;
-    width: 12px;
-    height: 8px;
+    width: 22px;
+    height: 13px;
+    background-size: contain;
 }
 
 .inverted_delta {
@@ -262,7 +263,7 @@ tbody tr td:last-child {
 }
 
 tbody tr:hover {
-    background-color: #e0e4ed;
+    background-color: #e1e1e1;
 }
 
 .top-menu__item-options button {
@@ -278,7 +279,7 @@ tbody tr:hover {
 }
 
 .top-menu__item-options button:hover {
-    background-color: #293B5F;
+    background-color: #1976D2;
     color: #F8F6F4;
 }
 

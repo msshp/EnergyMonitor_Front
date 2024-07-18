@@ -64,14 +64,14 @@
                     <div class="pies-block">
                         <div class="info-block__half">
                             <div class="info-block__block">
-                                <h4 class="charge-level">Напряжение АКБ</h4>
+                                <h4 class="charge-level">Напряжение канал А (Вольт)</h4>
                                 <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
                                     :lastResult="lastResult" />
                             </div>
                         </div>
                         <div class="info-block__half">
                             <div class="info-block__block">
-                                <h4 class="charge-level">Уровень заряда АКБ</h4>
+                                <h4 class="charge-level">Мощность канал А (Ватт)</h4>
                                 <ThePieChart v-if="batCChart" :controllerInfoStorage="receivedData"
                                     :lastResult="lastResult" />
                             </div>
@@ -1003,6 +1003,8 @@ export default {
             }).then((response) => {
                 if (response.status === 200) {
                     this.controllerInfo = response.data;
+                    console.log(this.controllerInfo);
+                    console.log('this.controllerInfo');
 
                     let date = this.controllerInfo.created_at;
                     let formatDate = date.split(',');
@@ -1027,6 +1029,7 @@ export default {
             }).then((response) => {
                 if (response.status === 200) {
                     this.recordedСoordinates = response.data.slice(0, 3);
+                    console.log(this.recordedСoordinates);
                 }
             }).catch((error) => {
                 // обработка ошибки
@@ -1185,9 +1188,9 @@ export default {
     font-weight: 500;
     font-size: 16px;
     line-height: 125%;
-    color: #293b5f;
+    color: #100F0F;
     margin-right: 32px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .controller_btn_active {
@@ -1233,7 +1236,7 @@ export default {
 }
 
 .dropdown__list-data-filter li {
-    margin: 0 6px 4px;
+    margin: 0;
 }
 
 .dropdown__button-data-filter i {
@@ -1248,7 +1251,7 @@ export default {
     height: 100%;
     position: absolute;
     right: -50px;
-    border-radius: 13px;
+    border-radius: 8px;
     background-color: #294b8e;
     padding: 0 7px;
     background-size: auto;
@@ -1262,7 +1265,7 @@ export default {
     display: flex;
     align-items: center;
     margin-right: 14px;
-    color: #294b8e;
+    color: #100F0F;
 }
 
 .controller-settings {
@@ -1280,7 +1283,7 @@ export default {
     color: #0E1626;
     border: 1px solid rgba(14, 22, 38, 0.5);
     padding: 6px 8px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 13px;
     width: 240px;
     line-height: 112%;
@@ -1288,7 +1291,7 @@ export default {
 }
 
 .controller-info button {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 7px 14px;
     margin-left: 8px;
     height: 100%;
@@ -1300,7 +1303,7 @@ export default {
 .controller-info,
 .controller-map {
     background-color: #F8F6F4;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 24px;
     font-weight: 400;
     font-size: 14px;
@@ -1348,7 +1351,7 @@ export default {
 
 .info-block__block {
     background-color: #F8F6F4;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 16px;
     font-weight: 400;
     font-size: 14px;
@@ -1455,7 +1458,7 @@ export default {
 }
 
 .more-btn {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 6px 12px;
     margin-right: 0px;
 }
@@ -1528,10 +1531,9 @@ export default {
 }
 
 .controller-page__info-block {
-    border-radius: 8px;
+    border-radius: 4px;
     width: 30%;
-    box-shadow: 3px 3px 6px 0 rgba(41, 75, 142, 0.5);
-    background: linear-gradient(90deg, #294b8e 27%, #2384c5 100%);
+    background: linear-gradient(90deg, #f16239 -105%, #1976d2 71%);
     font-weight: 400;
     font-size: 14px;
     line-height: 112%;
@@ -1620,7 +1622,7 @@ export default {
 
 .ymaps-2-1-79-map,
 .ymaps-2-1-79-inner-panes {
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .error-desc {
@@ -1637,11 +1639,11 @@ export default {
 }
 
 .dashboard-event-line:first-child {
-    border-radius: 8px 8px 0 0;
+    border-radius: 4px 4px 0 0;
 }
 
 .dashboard-event-line:last-child {
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 4px 4px;
 }
 
 .measured-at__dashboard-errors_code {
@@ -1688,7 +1690,7 @@ export default {
 }
 
 .options-block__coords-btn button {
-    border-radius: 8px;
+    border-radius: 4px;
     margin-bottom: 8px;
     padding: 6px 10px;
     margin-left: 8px;
@@ -1708,7 +1710,7 @@ export default {
     color: #0E1626;
     border: 1px solid rgba(14, 22, 38, 0.5);
     padding: 6px 8px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 13px;
     width: 240px;
     line-height: 112%;
@@ -1751,7 +1753,7 @@ export default {
     display: flex;
     align-items: center;
     background: linear-gradient(90deg, #294b8e 27%, #2384c5 100%);
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 6px 10px 6px 16px;
     width: 173px;
     position: absolute;
@@ -1801,7 +1803,7 @@ export default {
 }
 
 .save-set {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 7px 14px;
     margin-left: 8px;
     font-family: 'Inter', sans-serif;

@@ -145,6 +145,7 @@ export default {
             }).then((response) => {
                 // обработка успешного запроса
                 this.allDevicesStorage = response.data.results;
+                console.log(this.allDevicesStorage);
                 this.getInfoForPlaceMark();
             }).catch((error) => {
                 // обработка ошибки

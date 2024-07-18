@@ -30,16 +30,18 @@ export default {
     mounted() {
         let ctx = document.getElementById('bat_cChart');
         let lastvalue = this.controllerInfoStorage[0];
+        console.log(lastvalue.load_A_p)
 
         if (lastvalue === undefined) {
             this.lastvalueTime = this.lastResult[0].created_at;
-            this.value = this.lastResult[0].bat_c;
+            this.value = this.lastResult[0].load_A_p;
         } else {
             this.lastvalueTime = lastvalue.created_at;
-            this.value = lastvalue.bat_c;
+            this.value = lastvalue.load_A_p;
         }
 
-        let difference = 100 - this.value;
+        console.log(this.value)
+        let difference = 1000 - this.value;
 
         if (Number(this.value) < 50) {
             this.chartColor = '#E94B4B';

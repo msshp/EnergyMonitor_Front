@@ -36,19 +36,23 @@ export default {
     mounted() {
         let ctx = document.getElementById('pieVoltage');
         let lastvalue = this.controllerInfoStorage[0];
+        console.log(lastvalue)
 
         if (lastvalue === undefined) {
             this.lastvalueTime = this.lastResult[0].created_at;
-            this.value = this.lastResult[0].bat_v;
+            this.value = this.lastResult[0].load_A_v;
         } else {
             this.lastvalueTime = lastvalue.created_at;
-            this.value = lastvalue.bat_v;
+            this.value = lastvalue.load_A_v;
         }
 
         // 10 - 14.5 вольт
         let a = this.value - 10;
         let b = (a * 100) / 4.5;
         let c = 100 - b;
+
+        // this.chartColor = '#1976d2';
+
 
         if (b < 50) {
             this.chartColor = '#E94B4B';

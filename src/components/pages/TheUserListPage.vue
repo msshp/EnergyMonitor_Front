@@ -339,25 +339,24 @@ export default {
 }
 
 .account__add-users {
-    border-radius: 8px;
-    width: 310px;
-    height: 47px;
-    background: #f4ca8d;
+    border-radius: 4px;
+    width: 244px;
+    height: 44px;
+    background: #f16239;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 112%;
-    color: #0e1626;
+    color: #fefefe;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
 }
 
 .account__add-users span {
     font-weight: 400;
-    font-size: 32px;
+    font-size: 28px;
     line-height: 56%;
-    color: #0e1626;
+    color: #fefefe;
     margin-right: 12px;
 }
 
@@ -368,13 +367,12 @@ table {
 table input,
 .select__button,
 .sort-by-creation {
-    width: 85%;
     background-color: transparent;
     color: #0E1626;
-    border: 1px solid rgba(14, 22, 38, 0.5);
+    border: 0.6px solid rgba(14, 22, 38, 0.5);
     padding: 6px 8px;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: 4px;
+    font-weight: 500;
     font-size: 16px;
     line-height: 112%;
 }

@@ -77,7 +77,7 @@ export default {
 .window {
     width: 590px;
     background-color: #F8F6F4;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 48px;
 }
 
@@ -110,8 +110,8 @@ h3 {
     height: 48px;
     width: 100%;
     text-align: left;
-    border-radius: 8px;
-    background: #294b8e;
+    border-radius: 4px;
+    background: #1976d2;
     padding: 8px 20px 8px 16px;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -120,7 +120,6 @@ h3 {
     line-height: 125%;
     letter-spacing: -0.02em;
     color: #f8f6f4;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -140,8 +139,8 @@ h3 {
     left: 0;
     top: 48px;
     list-style-type: none;
-    background: #294b8e;
-    border-radius: 0 0 8px 8px;
+    background: #1976D2;
+    border-radius: 0 0 4px 4px;
     width: 100%;
     padding: 0 0 4px 0;
     margin: 0;
@@ -155,7 +154,7 @@ ul div {
 
 .dropdown__list-item {
     text-align: left;
-    border-radius: 8px;
+    border-radius: 4px;
     height: 40px;
     cursor: pointer;
     font-weight: 400;
@@ -176,7 +175,7 @@ ul div {
 
 .dropdown input {
     padding: 14px 16px;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: transparent;
     border: 1px solid #293b5f;
     color: #293b5f;
@@ -195,7 +194,7 @@ ul div {
 }
 
 .btn-container button {
-    border-radius: 8px;
+    border-radius: 4px;
     width: 156px;
     height: 48px;
     font-weight: 500;
@@ -205,14 +204,14 @@ ul div {
 }
 
 .save-btn {
-    background: #294b8e;
+    background: #1976d2;
     color: #f8f6f4;
     margin-right: 8px;
 }
 
 .cancel-btn {
     background-color: transparent;
-    color: #294b8e;
-    border: 1px solid #294b8e;
+    color: #1976d2;
+    border: 1px solid #1976d2;
 }
 </style>

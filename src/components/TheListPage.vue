@@ -1,9 +1,9 @@
 <template>
     <div class="page-content__container">
         <div className="page-content__title page-content__title_list">
-            <p>Список контроллеров</p>
+            <p>Список устройств</p>
             <button v-if="access" class="account__add-users" @click="addController()"><span>+</span> Добавить
-                контроллер</button>
+                устройство</button>
         </div>
         <div class="account-separator"></div>
         <table>
@@ -18,19 +18,20 @@
                     <th><input v-model.trim="searchValControllerByControllerName" type="text" placeholder="Название"
                             v-on:input="searchControllerByControllerName"></th>
                     <th class="sort-by-date">
-                        <div class="sortlist-by-voltage_container">Напряжение АКБ (В)<div
+                        <div class="sortlist-by-voltage_container">Напряжение канал А (Вольт)<div
                                 @click="sortListByVoltageToggle()" class="sortlist-by-voltage"
                                 v-bind:class="{ sortlistbyvoltage_active: sortlistByVoltageActive }"></div>
                         </div>
                     </th>
-                    <th class="sort-by-date">Уровень сигнала GSM</th>
+                    <th class="sort-by-date">Мощность канал А (Ватт)</th>
+                    <th class="sort-by-date">Потребление за период канал А (Вт*Ч)</th>
                     <th class="sort-by-date">
                         <div class="sortlist-by-voltage_container">Выход на связь<div
                                 @click="sortListByLastTimeToggle()" class="sortlist-by-voltage"
                                 v-bind:class="{ sortlistbyvoltage_active: sortlistByLastTimeActive }"></div>
                         </div>
                     </th>
-                    <th class="sort-by-date">Ошибки</th>
+                    <th class="sort-by-date">Код события</th>
                 </tr>
             </thead>
             <div v-if="list.loading" class="loading">
@@ -198,6 +199,7 @@ export default {
                 }).then((response) => {
                     // обработка успешного запроса
                     this.controllerList = response.data.results;
+                    console.log(this.controllerList)
 
                     this.controllerList.forEach(el => {
                         let date = el.status.last_session;
@@ -253,6 +255,7 @@ export default {
 
 tr th {
     text-align: left;
+    font-weight: 500;
 }
 
 tr th input {
@@ -269,7 +272,7 @@ tr th input {
 }
 
 .sortlist-by-voltage {
-    width: 30px;
+    width: 36px;
     height: 30px;
     margin-left: 14px;
     background-image: url(../sorticon_unactive.svg);
@@ -286,6 +289,10 @@ tr th input {
     padding: 0 0 0 20px;
 }
 
+.list-tr th {
+    font-size: 14px;
+}
+
 @media (max-width: 1600px) {
     .list-tr th {
         font-size: 12px;
@@ -298,8 +305,8 @@ tr th input {
     }
 
     .sortlist-by-voltage {
-        width: 26px;
-        height: 26px;
+        width: 33px;
+        height: 27px;
         margin-left: 8px;
     }
 }
