@@ -4,12 +4,11 @@
         <canvas id="pieVoltage"></canvas>
         <div class="pie-value pie-voltage">{{ value }}<p>вольт</p>
         </div>
-    </div>
-    <!-- <div class="pie-container">
-        <canvas id="p_genChart"></canvas>
-        <div class="pie-value pie-energy">{{ value }}<p>вт⋅ч</p>
+        <div class="sample-value">
+            <div>0</div>
+            <div>300</div>
         </div>
-    </div> -->
+    </div>
 </template>
 
 <script>
@@ -36,7 +35,6 @@ export default {
     mounted() {
         let ctx = document.getElementById('pieVoltage');
         let lastvalue = this.controllerInfoStorage[0];
-        console.log(lastvalue)
 
         if (lastvalue === undefined) {
             this.lastvalueTime = this.lastResult[0].created_at;
@@ -46,21 +44,13 @@ export default {
             this.value = lastvalue.load_A_v;
         }
 
-        // 10 - 14.5 вольт
-        let a = this.value - 10;
-        let b = (a * 100) / 4.5;
-        let c = 100 - b;
+        // 0 - 300 вольт
 
-        // this.chartColor = '#1976d2';
+        let a = this.value;
+        let b = 300 - a;
+        let c = 300;
 
-
-        if (b < 50) {
-            this.chartColor = '#E94B4B';
-        } else if (b > 70) {
-            this.chartColor = '#B6DE14';
-        } else {
-            this.chartColor = '#F4CA8D';
-        }
+        this.chartColor = '#1976d2';
 
         if (Number(this.value) === 0) {
             this.chartDefColor = '#E94B4B';
@@ -68,15 +58,17 @@ export default {
 
         const chartdata = {
             datasets: [{
-                data: [b, c],
+                data: [a, b, c],
                 borderWidth: [0, 0],
                 backgroundColor: [
                     this.chartColor,
-                    this.chartDefColor
+                    this.chartDefColor,
+                    '#fefefe',
                 ],
                 hoverBackgroundColor: [
                     this.chartColor,
-                    this.chartDefColor
+                    this.chartDefColor,
+                    '#fefefe'
                 ],
                 hoverOffset: [3, 0]
             }]
@@ -98,3 +90,48 @@ export default {
 }
 
 </script>
+
+<style>
+#pieVoltage,
+#bat_cChart {
+    transform: rotate(-90deg);
+}
+
+.sample-value {
+    position: absolute;
+    padding: 0 24px;
+    font-size: 14px;
+    width: 84%;
+    top: 56%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sample-value div {
+    width: 30px;
+    text-align: center;
+}
+
+@media (min-width: 1600px) {
+    .sample-value div {
+        width: 36px;
+    }
+
+    .sample-value {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1700px) {
+    .sample-value div {
+        width: 43px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .sample-value div {
+        width: 106px;
+        font-size: 16px;
+    }
+}
+</style>

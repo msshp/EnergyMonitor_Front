@@ -15,10 +15,6 @@
                     <span>{{ controllerInfo.device_type.device_type }}</span>
                 </div>
                 <div class="controller-page__info-block">
-                    <p>уровень сигнала</p>
-                    <span>{{ lastReleaseSignal }}</span>
-                </div>
-                <div class="controller-page__info-block">
                     <p>дата последнего выхода</p>
                     <span>{{ lastReleaseDate }}</span>
                 </div>
@@ -63,15 +59,15 @@
                 <div class="info-block__half">
                     <div class="pies-block">
                         <div class="info-block__half">
-                            <div class="info-block__block">
-                                <h4 class="charge-level">Напряжение канал А (Вольт)</h4>
+                            <div class="info-block__block pies-block__padding">
+                                <h4 class="charge-level">Напряжение канал А</h4>
                                 <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
                                     :lastResult="lastResult" />
                             </div>
                         </div>
                         <div class="info-block__half">
-                            <div class="info-block__block">
-                                <h4 class="charge-level">Мощность канал А (Ватт)</h4>
+                            <div class="info-block__block pies-block__padding">
+                                <h4 class="charge-level">Ток канала А</h4>
                                 <ThePieChart v-if="batCChart" :controllerInfoStorage="receivedData"
                                     :lastResult="lastResult" />
                             </div>
@@ -79,17 +75,21 @@
                     </div>
                     <div class="pies-block">
                         <div class="info-block__half">
-                            <div class="info-block__block">
-                                <h4 class="charge-level">Сгенерированно энергии</h4>
-                                <p class="pie-last-time">{{ dateText }}</p>
-                                <ThePieChartTwo v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                            <div class="info-block__block info-block__block_">
+                                <div>
+                                    <h4 class="charge-level charge-level__margin">Потребление канала А за период</h4>
+                                    <p class="pie-last-time">{{ dateText }}</p>
+                                    <ThePieChartTwo v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                                </div>
                             </div>
                         </div>
                         <div class="info-block__half">
-                            <div class="info-block__block">
-                                <h4 class="charge-level">Потрачено энергии</h4>
-                                <p class="pie-last-time">{{ dateText }}</p>
-                                <ThePieChartThree v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                            <div class="info-block__block info-block__block_">
+                                <div>
+                                    <h4 class="charge-level">Суммарное потребление за все время канала А</h4>
+                                    <p class="pie-last-time">{{ dateText }}</p>
+                                    <ThePieChartThree v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,15 +129,15 @@
             </div>
             <div class="info-block__first">
                 <div class="info-block__half">
-                    <div class="info-block__block info-block__block-current ">
-                        <h4>ток</h4>
-                        <TheBarChart v-if="visibleChart" :controllerInfoStorage="receivedData" />
-                    </div>
-                </div>
-                <div class="info-block__half">
                     <div class="info-block__block">
                         <h4>Напряжение</h4>
                         <TheVoltageChart v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                    </div>
+                </div>
+                <div class="info-block__half">
+                    <div class="info-block__block info-block__block-current ">
+                        <h4>ток</h4>
+                        <TheBarChart v-if="visibleChart" :controllerInfoStorage="receivedData" />
                     </div>
                 </div>
             </div>
@@ -157,22 +157,22 @@
                         </div>
                         <div className="info-line info-line__title info-line__title-dashboard">
                             <div class="measured_at measured-at__dashboard">дата/время</div>
-                            <div>Напряжение PV(В)</div>
-                            <div>Напряжение АКБ(В)</div>
-                            <div>Напряжение нагрузки(В)</div>
-                            <div>Ток PV(А)</div>
-                            <div>Ток АКБ(А)</div>
-                            <div>Ток нагрузки(А)</div>
+                            <div>Напряжение канал А (В)</div>
+                            <div>Напряжение канал B (В)</div>
+                            <div>Напряжение канал C (В)</div>
+                            <div>Ток канала А (А)</div>
+                            <div>Ток канала B (А)</div>
+                            <div>Ток канала C (А)</div>
                         </div>
                         <div class="controller-data__dashboard">
                             <div className="info-line info-line__table" v-for="info in receivedData" :key="info">
                                 <div class="measured_at measured-at__dashboard">{{ info.created_at }}</div>
-                                <div>{{ info.pv_v }}</div>
-                                <div>{{ info.bat_v }}</div>
-                                <div>{{ info.load_v }}</div>
-                                <div>{{ info.pv_i }}</div>
-                                <div>{{ info.bat_i }}</div>
-                                <div>{{ info.load_i }}</div>
+                                <div>{{ info.load_A_v }}</div>
+                                <div>{{ info.load_B_v }}</div>
+                                <div>{{ info.load_C_v }}</div>
+                                <div>{{ info.load_A_i }}</div>
+                                <div>{{ info.load_B_i }}</div>
+                                <div>{{ info.load_C_i }}</div>
                             </div>
                         </div>
                     </div>
@@ -251,24 +251,24 @@
         </div>
         <div v-if="btns.dataActive" class="dashboard-table">
             <div v-if="thereIsData" class="there-is-data">Нет данных за период</div>
-            <div className="info-line info-line__title">
+            <div className="info-line info-line__title info-line__title-data">
                 <div class="measured_at">дата/время</div>
-                <div>Напряжение PV(В)</div>
-                <div>Напряжение АКБ(В)</div>
-                <div>Напряжение нагрузки(В)</div>
-                <div>Ток PV(А)</div>
-                <div>Ток АКБ(А)</div>
-                <div>Ток нагрузки(А)</div>
+                <div>Напряжение канал А (В)</div>
+                <div>Напряжение канал B (В)</div>
+                <div>Напряжение канал C (В)</div>
+                <div>Ток канала А (А)</div>
+                <div>Ток канала B (А)</div>
+                <div>Ток канала C (А)</div>
             </div>
             <div class="controller-data">
                 <div className="info-line" v-for="info in receivedData" :key="info">
                     <div class="measured_at">{{ info.created_at }}</div>
-                    <div>{{ info.pv_v }}</div>
-                    <div>{{ info.bat_v }}</div>
-                    <div>{{ info.load_v }}</div>
-                    <div>{{ info.pv_i }}</div>
-                    <div>{{ info.bat_i }}</div>
-                    <div>{{ info.load_i }}</div>
+                    <div>{{ info.load_A_v }}</div>
+                    <div>{{ info.load_B_v }}</div>
+                    <div>{{ info.load_C_v }}</div>
+                    <div>{{ info.load_A_i }}</div>
+                    <div>{{ info.load_B_i }}</div>
+                    <div>{{ info.load_C_i }}</div>
                 </div>
             </div>
         </div>
@@ -357,7 +357,6 @@ export default {
             indicatorSearchLastEntry: false,
             lastResult: [],
             lastReleaseDate: ' ', // последний выход на связь,
-            lastReleaseSignal: ' ',
 
             visibleChart: false,
             thereIsData: false,
@@ -403,11 +402,13 @@ export default {
             this.drawControllerMap(this.controllerInfoStorage[0]);
         },
         settingsOn() {
-            for (let btn in this.btns) { // выключение всех кнопок
-                this.btns[btn] = false;
+            if (!this.btns.settingsActive) {
+                for (let btn in this.btns) { // выключение всех кнопок
+                    this.btns[btn] = false;
+                }
+                this.btns.settingsActive = true;
+                this.drawSettingsMap(this.controllerInfoStorage[0]);
             }
-            this.btns.settingsActive = true;
-            this.drawSettingsMap(this.controllerInfoStorage[0]);
         },
         dataOn() {
             for (let btn in this.btns) { // выключение всех кнопок
@@ -506,7 +507,7 @@ export default {
                             })
 
                             this.lastReleaseDate = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
-                            this.lastReleaseSignal = this.receivedData[0].dbi;
+                            console.log(this.receivedData[0]);
                         }
                         this.correctControllerData();
                     }
@@ -639,6 +640,12 @@ export default {
                 }
             }
 
+            let element = document.getElementById('map-dashboard');
+
+            if (element.firstChild !== null) {
+                element.removeChild(element.firstChild);
+            }
+
             ymaps.ready(() => {
                 const dashMap = new ymaps.Map('map-dashboard', {
                     center: [this.coordinates.latitude, this.coordinates.longitude],
@@ -680,8 +687,8 @@ export default {
                         iconImageOffset: [-8, -5],
                         hideIconOnBalloonOpen: false
                     });
-                    dashMap.geoObjects.add(myPlacemark);
 
+                    dashMap.geoObjects.add(myPlacemark);
                     this.mapIndication = true;
                 }
             });
@@ -702,7 +709,7 @@ export default {
                 }
             }
 
-            let autoSwitchCoords = this.autoSwitchCoords;
+            // let autoSwitchCoords = this.autoSwitchCoords;
 
             let self = this; // Сохраняем ссылку на this
 
@@ -806,7 +813,6 @@ export default {
                         this.lastReleaseDate = this.lastResult[0].created_at;
 
                         this.batCChart = true;
-                        this.lastReleaseSignal = '-';
                     }
                 }).catch((error) => {
                     // обработка ошибки
@@ -1003,8 +1009,6 @@ export default {
             }).then((response) => {
                 if (response.status === 200) {
                     this.controllerInfo = response.data;
-                    console.log(this.controllerInfo);
-                    console.log('this.controllerInfo');
 
                     let date = this.controllerInfo.created_at;
                     let formatDate = date.split(',');
@@ -1029,7 +1033,6 @@ export default {
             }).then((response) => {
                 if (response.status === 200) {
                     this.recordedСoordinates = response.data.slice(0, 3);
-                    console.log(this.recordedСoordinates);
                 }
             }).catch((error) => {
                 // обработка ошибки
@@ -1100,7 +1103,7 @@ export default {
 .loading {
     display: flex;
     justify-content: center;
-    background-color: #EEEEEE;
+    background-color: #f3f5f6;
     height: 110vh;
     width: 100%;
     position: absolute;
@@ -1147,11 +1150,11 @@ export default {
     width: 100%;
     justify-content: space-between;
     font-size: 14px;
-    background-color: #F8F6F4;
+    background-color: #fefefe;
 }
 
 .info-line:hover {
-    background-color: #e0e4ed;
+    background-color: #E3EEF9;
 }
 
 .info-line__title {
@@ -1161,6 +1164,10 @@ export default {
 
 .info-line__title:hover {
     background-color: transparent;
+}
+
+.info-line__title-data {
+    margin-bottom: 14px;
 }
 
 .info-line div {
@@ -1271,7 +1278,6 @@ export default {
 .controller-settings {
     display: flex;
     justify-content: space-between;
-    height: 65vh;
 }
 
 .controller-info p:last-child {
@@ -1283,16 +1289,16 @@ export default {
     color: #0E1626;
     border: 1px solid rgba(14, 22, 38, 0.5);
     padding: 6px 8px;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 13px;
-    width: 240px;
+    width: 94%;
     line-height: 112%;
     height: 16px;
 }
 
 .controller-info button {
-    border-radius: 4px;
-    padding: 7px 14px;
+    border-radius: 8px;
+    padding: 7px 10px;
     margin-left: 8px;
     height: 100%;
     background: #294b8e;
@@ -1331,11 +1337,11 @@ export default {
     height: 57vh;
     overflow-y: scroll;
     overflow-x: hidden;
-    border-radius: 12px;
+    border-radius: 4px;
 }
 
 .controller-data .info-line:last-child {
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 4px 4px;
     padding-bottom: 4px;
 }
 
@@ -1350,7 +1356,7 @@ export default {
 }
 
 .info-block__block {
-    background-color: #F8F6F4;
+    background-color: #fefefe;
     border-radius: 4px;
     padding: 16px;
     font-weight: 400;
@@ -1507,7 +1513,7 @@ export default {
     padding: 0 !important;
     font-size: 40px;
     width: 100%;
-    top: 44%;
+    top: 35%;
     text-align: center;
 }
 
@@ -1516,7 +1522,7 @@ export default {
 }
 
 .pie-voltage {
-    top: 40%;
+    top: 33%;
 }
 
 .pie-value p {
@@ -1537,7 +1543,7 @@ export default {
     font-weight: 400;
     font-size: 14px;
     line-height: 112%;
-    color: #f8f6f4;
+    color: #fefefe;
     padding: 16px;
     margin: -12px 16px 24px 0;
 }
@@ -1565,7 +1571,7 @@ export default {
 }
 
 .pies-block:first-child {
-    margin-bottom: 16px;
+    margin-bottom: -54px;
 }
 
 .dashboard-map div {
@@ -1584,7 +1590,7 @@ export default {
 .there-is-data {
     position: absolute;
     display: flex;
-    background: #f8f6f4;
+    background: #fefefe;
     width: 100%;
     height: 100%;
     justify-content: center;
@@ -1816,6 +1822,29 @@ export default {
     width: 258px;
 }
 
+.pies-block__padding {
+    padding: 16px 16px 0px;
+    height: 75%;
+    overflow: hidden;
+}
+
+.info-block__block_ {
+    padding: 0 !important;
+    height: 100%;
+}
+
+.info-block__block_ div {
+    padding: 16px;
+}
+
+.charge-level__margin {
+    margin-bottom: 35px !important;
+}
+
+.controller-info__containerone {
+    width: 47%;
+}
+
 @media (max-width: 1600px) {
 
     .options-block__coords-btn button,
@@ -1910,11 +1939,11 @@ export default {
     }
 
     .pie-voltage {
-        top: 42% !important;
+        top: 36% !important;
     }
 
     .pie-value {
-        top: 45%;
+        top: 39%;
     }
 
     .pie-energy {
@@ -1956,8 +1985,8 @@ export default {
     }
 
     .pie-container canvas {
-        width: 75% !important;
-        height: 75% !important;
+        width: 77% !important;
+        height: 77% !important;
     }
 
     .measured-at__dashboard-name {

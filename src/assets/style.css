@@ -143,7 +143,7 @@ button {
     z-index: 0;
     margin: 0 0 0 auto;
     z-index: 0;
-    background-color: #EEEEEE;
+    background-color: #f3f5f6;
     height: 100%;
 }
 
@@ -263,7 +263,7 @@ tbody tr td:last-child {
 }
 
 tbody tr:hover {
-    background-color: #e1e1e1;
+    background-color: #E3EEF9;
 }
 
 .top-menu__item-options button {

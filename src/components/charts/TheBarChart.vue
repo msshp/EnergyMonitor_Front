@@ -20,9 +20,9 @@ export default {
 
         this.controllerInfoStorage.forEach((el) => {
             labels.push(el.created_at);
-            dataBatI.push(el.bat_i);
-            dataPvI.push(el.pv_i);
-            dataLoadI.push(el.load_i);
+            dataBatI.push(el.load_B_i);
+            dataPvI.push(el.load_A_i);
+            dataLoadI.push(el.load_C_i);
         });
 
         labels.reverse();
@@ -36,7 +36,7 @@ export default {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Ток PV (А)',
+                        label: 'Ток канала А (А)',
                         data: dataPvI,
                         borderWidth: 2,
                         borderColor: '#293B5F',
@@ -47,7 +47,7 @@ export default {
                         backgroundColor: '#293B5F',
                     },
                     {
-                        label: 'Ток АКБ (А)',
+                        label: 'Ток канала B (А)',
                         data: dataBatI,
                         borderWidth: 2,
                         borderColor: '#2384c5',
@@ -58,7 +58,7 @@ export default {
                         backgroundColor: '#2384c5',
                     },
                     {
-                        label: 'Ток нагрузки (А)',
+                        label: 'Ток канала C (А)',
                         data: dataLoadI,
                         borderWidth: 2,
                         borderColor: '#B743C1',

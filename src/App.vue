@@ -670,7 +670,7 @@ input::placeholder {
 
 .page-content__container {
   padding: 82px 24px 24px 24px;
-  background-color: #EEEEEE;
+  background-color: #f3f5f6;
   position: relative;
 }
 

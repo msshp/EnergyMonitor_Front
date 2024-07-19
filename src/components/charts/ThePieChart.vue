@@ -2,7 +2,11 @@
     <div class="pie-container">
         <p class="pie-last-time">{{ lastvalueTime }}</p>
         <canvas id="bat_cChart"></canvas>
-        <div class="pie-value">{{ value }}%</div>
+        <div class="pie-value">{{ value }} А</div>
+        <div class="sample-value">
+            <div>0</div>
+            <div>50</div>
+        </div>
     </div>
 </template>
 
@@ -30,26 +34,20 @@ export default {
     mounted() {
         let ctx = document.getElementById('bat_cChart');
         let lastvalue = this.controllerInfoStorage[0];
-        console.log(lastvalue.load_A_p)
 
         if (lastvalue === undefined) {
             this.lastvalueTime = this.lastResult[0].created_at;
-            this.value = this.lastResult[0].load_A_p;
+            this.value = this.lastResult[0].load_A_i;
         } else {
             this.lastvalueTime = lastvalue.created_at;
-            this.value = lastvalue.load_A_p;
+            this.value = lastvalue.load_A_i;
         }
+        // 0 - 50 А
+        let a = this.value;
+        let b = 50 - a;
+        let c = 50;
 
-        console.log(this.value)
-        let difference = 1000 - this.value;
-
-        if (Number(this.value) < 50) {
-            this.chartColor = '#E94B4B';
-        } else if (Number(this.value) > 70) {
-            this.chartColor = '#B6DE14';
-        } else {
-            this.chartColor = '#F4CA8D';
-        }
+        this.chartColor = '#1976d2';
 
         if (Number(this.value) === 0) {
             this.chartDefColor = '#E94B4B';
@@ -57,15 +55,17 @@ export default {
 
         const chartdata = {
             datasets: [{
-                data: [Number(this.value), Number(difference)],
+                data: [a, b, c],
                 borderWidth: [0, 0],
                 backgroundColor: [
                     this.chartColor,
-                    this.chartDefColor
+                    this.chartDefColor,
+                    '#fefefe'
                 ],
                 hoverBackgroundColor: [
                     this.chartColor,
-                    this.chartDefColor
+                    this.chartDefColor,
+                    '#fefefe'
                 ],
                 hoverOffset: [3, 0]
             }]

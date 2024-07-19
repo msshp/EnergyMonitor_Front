@@ -24,9 +24,7 @@ export default {
         if (this.controllerInfoStorage.length === 0) {
             this.value = 0;
         } else {
-            this.controllerInfoStorage.forEach(el => {
-                this.value = this.value + el.p_gen;
-            })
+            this.value = this.controllerInfoStorage[0].count_power_A;
         }
 
         const chartdata = {
@@ -34,7 +32,7 @@ export default {
                 data: [this.value],
                 borderWidth: [0, 0],
                 backgroundColor: [
-                    '#2384c5'
+                    '#14589B'
                 ],
                 hoverBackgroundColor: [
                     '#3396D8'
