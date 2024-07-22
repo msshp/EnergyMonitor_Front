@@ -18,13 +18,13 @@
                     <th><input v-model.trim="searchValControllerByControllerName" type="text" placeholder="Название"
                             v-on:input="searchControllerByControllerName"></th>
                     <th class="sort-by-date">
-                        <div class="sortlist-by-voltage_container">Напряжение канал А (Вольт)<div
+                        <div class="sortlist-by-voltage_container">Напряжение канал А<div
                                 @click="sortListByVoltageToggle()" class="sortlist-by-voltage"
                                 v-bind:class="{ sortlistbyvoltage_active: sortlistByVoltageActive }"></div>
                         </div>
                     </th>
-                    <th class="sort-by-date">Мощность канал А (Ватт)</th>
-                    <th class="sort-by-date">Потребление за период канал А (Вт*Ч)</th>
+                    <th class="sort-by-date">Мощность канал А</th>
+                    <th class="sort-by-date">Потребление за период канал А</th>
                     <th class="sort-by-date">
                         <div class="sortlist-by-voltage_container">Выход на связь<div
                                 @click="sortListByLastTimeToggle()" class="sortlist-by-voltage"
@@ -199,7 +199,6 @@ export default {
                 }).then((response) => {
                     // обработка успешного запроса
                     this.controllerList = response.data.results;
-                    console.log(this.controllerList)
 
                     this.controllerList.forEach(el => {
                         let date = el.status.last_session;

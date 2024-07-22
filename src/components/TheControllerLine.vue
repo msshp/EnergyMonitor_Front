@@ -3,9 +3,9 @@
         <td @click="openControllerPage(controller.id)" class="tr-id">{{ controller.id }}</td>
         <td @click="openControllerPage(controller.id)" class="tr-name"> {{ controller.sn }}</td>
         <td @click="openControllerPage(controller.id)">{{ controller.name }}</td>
-        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_v }}</td>
-        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_p }}</td>
-        <td @click="openControllerPage(controller.id)">{{ controller.status.count_power_A }}</td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_v }} <span>Вольт</span></td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.load_A_p }} <span>Ватт</span></td>
+        <td @click="openControllerPage(controller.id)">{{ controller.status.count_power_A }} <span>Вт*Ч</span></td>
         <td @click="openControllerPage(controller.id)">{{ controller.status.created_at }}</td>
         <td @click="openControllerPage(controller.id)">{{ controller.status.event }}</td>
         <td v-if="access" class="controller-delete__container" @click="deleteController(controller.id)">
@@ -58,6 +58,10 @@ export default {
 <style>
 .controller-btn {
     cursor: pointer;
+}
+
+.controller-btn td span {
+    color: rgba(14, 22, 38, 0.5);
 }
 
 .controller-delete__container {

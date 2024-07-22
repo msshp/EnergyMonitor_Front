@@ -36,7 +36,7 @@ export default {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Напряжение канал А (В)',
+                        label: 'Напряжение канал А',
                         data: dataPvV,
                         borderWidth: 2,
                         borderColor: '#F4CA8D',

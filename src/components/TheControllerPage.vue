@@ -49,7 +49,7 @@
                 </div>
             </div>
         </nav>
-        <div v-if="btns.loading" class="loading">
+        <div v-if="btns.loading" class="loading loading__controller-page">
             <div>
                 <div class="loader"></div>
             </div>
@@ -130,13 +130,13 @@
             <div class="info-block__first">
                 <div class="info-block__half">
                     <div class="info-block__block">
-                        <h4>Напряжение</h4>
+                        <h4>Напряжение (Вольт)</h4>
                         <TheVoltageChart v-if="visibleChart" :controllerInfoStorage="receivedData" />
                     </div>
                 </div>
                 <div class="info-block__half">
                     <div class="info-block__block info-block__block-current ">
-                        <h4>ток</h4>
+                        <h4>ток (А)</h4>
                         <TheBarChart v-if="visibleChart" :controllerInfoStorage="receivedData" />
                     </div>
                 </div>
@@ -493,6 +493,7 @@ export default {
                         if (this.controllerInfoStorage.length === 0) {
                             this.indicatorSearchLastEntry = true; // найти последнюю запись
                             this.thereIsData = true; // показать блок «Нет данных за этот период»
+                            this.receivedData = [];
                         }
 
                         if (this.controllerInfoStorage.length !== 0) {
@@ -507,7 +508,6 @@ export default {
                             })
 
                             this.lastReleaseDate = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
-                            console.log(this.receivedData[0]);
                         }
                         this.correctControllerData();
                     }
@@ -1111,6 +1111,10 @@ export default {
     z-index: 98;
 }
 
+.loading__controller-page {
+    margin-top: -8px;
+}
+
 .loader {
     margin-top: 200px;
     width: 70px;
@@ -1259,7 +1263,7 @@ export default {
     position: absolute;
     right: -50px;
     border-radius: 8px;
-    background-color: #294b8e;
+    background-color: #1976d2;
     padding: 0 7px;
     background-size: auto;
 }
@@ -1780,7 +1784,7 @@ export default {
     width: 20px;
     height: 20px;
     background-size: contain;
-    background-image: url(../img/account/basket-white.svg);
+    background-image: url(../img/basket-white.svg);
     background-repeat: no-repeat;
     margin-left: 10px;
     cursor: pointer;

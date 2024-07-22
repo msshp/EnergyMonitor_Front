@@ -36,7 +36,7 @@ export default {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Ток канала А (А)',
+                        label: 'Ток канала А',
                         data: dataPvI,
                         borderWidth: 2,
                         borderColor: '#293B5F',
@@ -47,7 +47,7 @@ export default {
                         backgroundColor: '#293B5F',
                     },
                     {
-                        label: 'Ток канала B (А)',
+                        label: 'Ток канала B',
                         data: dataBatI,
                         borderWidth: 2,
                         borderColor: '#2384c5',
@@ -58,7 +58,7 @@ export default {
                         backgroundColor: '#2384c5',
                     },
                     {
-                        label: 'Ток канала C (А)',
+                        label: 'Ток канала C',
                         data: dataLoadI,
                         borderWidth: 2,
                         borderColor: '#B743C1',
