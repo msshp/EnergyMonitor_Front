@@ -24,7 +24,9 @@ export default {
         if (this.controllerInfoStorage.length === 0) {
             this.value = 0;
         } else {
-            this.value = this.controllerInfoStorage[0].count_power_A;
+            this.controllerInfoStorage.forEach(el => {
+                this.value = this.value + el.count_power_A;
+            })
         }
 
         const chartdata = {
