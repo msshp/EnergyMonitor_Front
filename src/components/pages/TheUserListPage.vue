@@ -27,7 +27,8 @@
                 </div>
             </div>
         </div>
-        <button v-if="access" class="account__add-users" @click="addUser()"><span>+</span> Добавить
+        <button v-if="access" class="account__add-users account__add-users-page" @click="addUser()"><span>+</span>
+            Добавить
             пользователя</button>
         <div v-if="access" class="account-separator"></div>
         <table>
@@ -291,10 +292,10 @@ export default {
 }
 
 .role-block {
-    border-radius: 8px;
+    border-radius: 4px;
     width: 310px;
     height: 140px;
-    background: #f8f6f4;
+    background: #fefefe;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -307,7 +308,7 @@ export default {
     width: 105px;
     height: 105px;
     background-repeat: no-repeat;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .role-block div:last-child {
@@ -316,11 +317,11 @@ export default {
 }
 
 .role-block__admin {
-    background-image: url(../img/account/admin.jpg);
+    background-image: url(../img/admin.svg);
 }
 
 .role-block__moder {
-    background-image: url(../img/account/moder.jpg);
+    background-image: url(../img/moder.svg);
 }
 
 .role-name {
@@ -350,6 +351,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.account__add-users-page {
+    margin-bottom: 24px;
+    width: 310px;
 }
 
 .account__add-users span {
@@ -444,8 +450,8 @@ td p {
     left: 8px;
     top: 32px;
     list-style-type: none;
-    background: #294b8e;
-    border-radius: 2px 2px 8px 8px;
+    background: #fefefe;
+    border-radius: 2px 2px 4px 4px;
     width: 94%;
     padding: 4px 0;
     margin: 0;
@@ -460,15 +466,15 @@ td p {
     font-size: 14px;
     line-height: 125%;
     letter-spacing: -0.02em;
-    color: #f8f6f4;
+    color: #868484;
     display: flex;
     align-items: center;
     padding-left: 10px;
 }
 
 .dropdown__list-item_table:hover {
-    color: #294b8e;
-    background-color: #f8f6f4;
+    color: #5197dd;
+    background-color: #e3eef9;
 }
 
 .grey_btn {

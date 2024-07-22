@@ -122,12 +122,12 @@ export default {
 .proj-info section {
     height: 242px;
     width: 624px;
-    background-color: #F8F6F4;
-    border-radius: 8px;
+    background-color: #fefefe;
+    border-radius: 4px;
     font-weight: 400;
     font-size: 14px;
     line-height: 129%;
-    color: #293b5f;
+    color: #100F0F;
     padding: 32px;
 }
 
@@ -158,7 +158,7 @@ export default {
 }
 
 .save-proj-btn {
-    border-radius: 8px;
+    border-radius: 4px;
     width: 132px;
     height: 40px;
     font-weight: 500;
@@ -175,12 +175,13 @@ export default {
 }
 
 .proj-info__img {
-    background-image: url(../img/account/proj.png);
-    margin: 16px 0 16px 16px;
+    background-image: url(../img/proj.svg);
+    margin: 4px 0 4px 4px;
     width: 135.6px;
     height: 135.6px;
     background-repeat: no-repeat;
-    border-radius: 8px;
+    border-radius: 4px;
+    background-size: contain;
 }
 
 .proj-info__block {

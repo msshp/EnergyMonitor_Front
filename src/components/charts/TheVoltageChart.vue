@@ -16,8 +16,7 @@ export default {
         let dataPvV = [];
         let dataBatV = [];
         let dataLoadV = [];
-
-        console.log(this.controllerInfoStorage)
+        
         this.controllerInfoStorage.forEach((el) => {
             labels.push(el.created_at);
             dataPvV.push(el.load_A_v);

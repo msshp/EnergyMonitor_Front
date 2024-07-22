@@ -642,6 +642,8 @@ export default {
 
             let element = document.getElementById('map-dashboard');
 
+            console.log(element.firstChild)
+            console.log(element.firstChild)
             if (element.firstChild !== null) {
                 element.removeChild(element.firstChild);
             }
@@ -1117,35 +1119,23 @@ export default {
 
 .loader {
     margin-top: 200px;
-    width: 70px;
-    aspect-ratio: 1;
-    display: grid;
+    width: 60px;
+    height: 60px;
+    border: 5px solid #9ec6ed;
+    border-bottom-color: #1976D2;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
 }
 
-.loader::before,
-.loader::after {
-    content: "";
-    grid-area: 1/1;
-    --c: no-repeat radial-gradient(farthest-side, #2482c5 95%, #b3373700);
-    background:
-        var(--c) 50% 0,
-        var(--c) 50% 100%,
-        var(--c) 100% 50%,
-        var(--c) 0 50%;
-    background-size: 12px 12px;
-    animation: l12 1s infinite;
-}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
 
-.loader::before {
-    margin: 4px;
-    filter: hue-rotate(45deg);
-    background-size: 8px 8px;
-    animation-timing-function: linear
-}
-
-@keyframes l12 {
     100% {
-        transform: rotate(.5turn)
+        transform: rotate(360deg);
     }
 }
 
@@ -1292,8 +1282,8 @@ export default {
     background-color: transparent;
     color: #0E1626;
     border: 1px solid rgba(14, 22, 38, 0.5);
-    padding: 6px 8px;
-    border-radius: 8px;
+    padding: 7px 8px;
+    border-radius: 4px;
     font-size: 13px;
     width: 94%;
     line-height: 112%;
@@ -1301,18 +1291,18 @@ export default {
 }
 
 .controller-info button {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 7px 10px;
     margin-left: 8px;
     height: 100%;
-    background: #294b8e;
+    background: #1976d2;
     color: #f8f6f4;
     margin-right: 8px;
 }
 
 .controller-info,
 .controller-map {
-    background-color: #F8F6F4;
+    background-color: #fefefe;
     border-radius: 4px;
     padding: 24px;
     font-weight: 400;
@@ -1604,7 +1594,7 @@ export default {
     font-weight: 500;
     font-size: 14px;
     text-transform: uppercase;
-    border-radius: 16px;
+    border-radius: 4px;
 }
 
 .dashboard-table {

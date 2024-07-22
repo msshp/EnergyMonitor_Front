@@ -156,7 +156,7 @@ button {
     align-items: center;
     padding: 0 0 0 16px;
     box-shadow: 0 8px 16px 0 rgba(41, 59, 95, 0.08);
-    background-color: #FEFEFE;
+    background-color: #fefefe;
     display: flex;
     z-index: 100;
 }
@@ -274,7 +274,7 @@ tbody tr:hover {
     display: flex;
     white-space: nowrap;
     width: 100%;
-    background-color: #F8F6F4;
+    background-color: #fefefe;
     color: #293B5F;
 }
 

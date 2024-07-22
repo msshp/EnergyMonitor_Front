@@ -653,10 +653,13 @@ input::placeholder {
   background-image: url(../img/logout-hover.svg);
 }
 
-#button-pa:hover .icon-personal-area,
+#button-pa:hover .icon-personal-area {
+  background-image: url(../img/pa-hover.svg);
+}
+
 #sidenav__userlist:hover .icon-personal-area,
 .icon_personal_area_active {
-  background-image: url(../img/pa-hover.svg);
+  background-image: url(../img/pa-hover-blue.svg);
 }
 
 .reg-title {
@@ -676,7 +679,7 @@ input::placeholder {
 
 .page-content__title p,
 .controller-page__title {
-  margin: 0 0 32px 0;
+  margin: 0 0 24px 0;
   font-weight: 500;
   font-size: 18px;
   line-height: 125%;

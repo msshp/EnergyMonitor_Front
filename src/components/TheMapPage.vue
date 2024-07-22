@@ -145,7 +145,6 @@ export default {
             }).then((response) => {
                 // обработка успешного запроса
                 this.allDevicesStorage = response.data.results;
-                console.log(this.allDevicesStorage);
                 this.getInfoForPlaceMark();
             }).catch((error) => {
                 // обработка ошибки
@@ -507,7 +506,8 @@ export default {
 
 .map-loader {
     margin-top: 0px !important;
-    width: 80px !important;
+    width: 70px !important;
+    height: 70px !important;
 }
 
 .loading-center {
