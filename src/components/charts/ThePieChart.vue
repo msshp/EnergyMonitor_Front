@@ -36,8 +36,10 @@ export default {
         let lastvalue = this.controllerInfoStorage[0];
 
         if (lastvalue === undefined) {
-            this.lastvalueTime = this.lastResult[0].created_at;
-            this.value = this.lastResult[0].load_A_i;
+            if (this.lastResult[0] !== undefined) {
+                this.lastvalueTime = this.lastResult[0].created_at;
+                this.value = this.lastResult[0].load_A_i;
+            }
         } else {
             this.lastvalueTime = lastvalue.created_at;
             this.value = lastvalue.load_A_i;

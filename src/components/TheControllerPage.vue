@@ -591,7 +591,7 @@ export default {
                                     '906': '#f57878'
                                 };
 
-                                el.color = colorToTypeMap[el.code] || '#F8F6F4';
+                                el.color = colorToTypeMap[el.code] || 'rgb(254 254 254)';
                             })
                             this.btns.loading = false;
                             this.getEventsForDashbard();
@@ -647,7 +647,7 @@ export default {
                                     '906': '#f57878'
                                 };
 
-                                el.color = colorToTypeMap[el.code] || '#F8F6F4';
+                                el.color = colorToTypeMap[el.code] || 'rgb(254 254 254)';
                             })
 
                             this.btns.loadingDashboard = false;
@@ -841,10 +841,12 @@ export default {
                     if (response.status === 200) {
                         this.lastResult = response.data;
 
-                        let date = this.lastResult[0].created_at;
-                        let formatDate = date.split(',');
-                        this.lastResult[0].created_at = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
-                        this.lastReleaseDate = this.lastResult[0].created_at;
+                        if (this.lastResult[0] !== undefined) {
+                            let date = this.lastResult[0].created_at;
+                            let formatDate = date.split(',');
+                            this.lastResult[0].created_at = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
+                            this.lastReleaseDate = this.lastResult[0].created_at;
+                        }
 
                         this.batCChart = true;
                     }
@@ -943,7 +945,6 @@ export default {
             if (this.autoSwitchCoords) { // если авто
                 this.coordNow = this.selectorCoordContent;
                 var element = document.getElementById("map-settings");
-                console.log(element.firstChild)
                 while (element.firstChild) {
                     element.removeChild(element.firstChild);
                 }
@@ -1635,7 +1636,7 @@ export default {
 }
 
 .pies-block:first-child {
-    margin-bottom: -54px;
+    margin-bottom: -44px;
 }
 
 .dashboard-map div {
@@ -1733,7 +1734,7 @@ export default {
 .loading-dashboard_events {
     height: 92%;
     margin-top: 50px;
-    background-color: #f8f6f4;
+    background-color: #fefefe;
     z-index: 90;
     border-radius: 24px;
 }
