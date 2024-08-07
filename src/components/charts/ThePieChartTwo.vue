@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            value: null
+            value: 0
         }
     },
     mounted() {
@@ -25,9 +25,11 @@ export default {
             this.value = 0;
         } else {
             this.controllerInfoStorage.forEach(el => {
-                this.value = this.value + el.count_power_A;
+                this.value = this.value + Number(el.count_power_A);
             })
         }
+
+        this.value = Number(this.value.toFixed(2))
 
         const chartdata = {
             datasets: [{
@@ -47,7 +49,7 @@ export default {
             type: 'doughnut',
             data: chartdata,
             options: {
-                cutout: 90,
+                cutout: 65,
                 plugins: {
                     tooltip: {
                         enabled: false

@@ -85,13 +85,13 @@ export default {
                         data: [admins, moderators, regularUsers],
                         borderWidth: [0, 0, 0],
                         backgroundColor: [
-                            '#293B5F',
-                            '#86A5E3',
+                            '#1976d2',
+                            '#f16239',
                             '#8DE386'
                         ],
                         hoverBackgroundColor: [
-                            '#293B5F',
-                            '#86A5E3',
+                            '#1976d2',
+                            '#f16239',
                             '#8DE386'
                         ]
                     }]
@@ -296,7 +296,7 @@ export default {
 }
 
 .control-diagram canvas {
-    width: 85% !important;
-    height: 85% !important;
+    width: 80% !important;
+    height: 80% !important;
 }
 </style>

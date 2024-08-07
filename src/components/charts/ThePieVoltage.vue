@@ -80,7 +80,7 @@ export default {
             type: 'doughnut',
             data: chartdata,
             options: {
-                cutout: 90,
+                cutout: 65,
                 plugins: {
                     tooltip: {
                         enabled: false
@@ -102,9 +102,9 @@ export default {
 .sample-value {
     position: absolute;
     padding: 0 24px;
-    font-size: 14px;
-    width: 84%;
-    top: 56%;
+    font-size: 15px;
+    width: 100%;
+    top: 61%;
     display: flex;
     justify-content: space-between;
 }

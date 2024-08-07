@@ -56,25 +56,16 @@
         </div>
         <div class="dashboard-container" v-if="btns.dashBoardActive">
             <div class="info-block__first">
-                <div class="info-block__half">
+                <div class="info-block__half info-block__half-cont">
                     <div class="pies-block">
-                        <div class="info-block__half">
+                        <div class="info-block__half-small">
                             <div class="info-block__block pies-block__padding">
                                 <h4 class="charge-level">Напряжение канал А</h4>
                                 <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
                                     :lastResult="lastResult" />
                             </div>
                         </div>
-                        <div class="info-block__half">
-                            <div class="info-block__block pies-block__padding">
-                                <h4 class="charge-level">Ток канала А</h4>
-                                <ThePieChart v-if="batCChart" :controllerInfoStorage="receivedData"
-                                    :lastResult="lastResult" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pies-block">
-                        <div class="info-block__half">
+                        <div class="info-block__half-small">
                             <div class="info-block__block info-block__block_">
                                 <div>
                                     <h4 class="charge-level charge-level__margin">Потребление канала А за период</h4>
@@ -83,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="info-block__half">
+                        <div class="info-block__half-small">
                             <div class="info-block__block info-block__block_">
                                 <div>
                                     <h4 class="charge-level">Суммарное потребление за все время канала А</h4>
@@ -92,7 +83,41 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="info-block__half">
+                            <div class="info-block__block pies-block__padding">
+                                <h4 class="charge-level">Ток канала А</h4>
+                                <ThePieChart v-if="batCChart" :controllerInfoStorage="receivedData"
+                                    :lastResult="lastResult" />
+                            </div>
+                        </div> -->
                     </div>
+                    <!-- <div class="pies-block">
+                        <div class="info-block__half-small">
+                            <div class="info-block__block pies-block__padding">
+                                <h4 class="charge-level">Напряжение канал А</h4>
+                                <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
+                                    :lastResult="lastResult" />
+                            </div>
+                        </div>
+                        <div class="info-block__half-small">
+                            <div class="info-block__block info-block__block_">
+                                <div>
+                                    <h4 class="charge-level charge-level__margin">Потребление канала А за период</h4>
+                                    <p class="pie-last-time">{{ dateText }}</p>
+                                    <ThePieChartTwo v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-block__half-small">
+                            <div class="info-block__block info-block__block_">
+                                <div>
+                                    <h4 class="charge-level">Суммарное потребление за все время канала А</h4>
+                                    <p class="pie-last-time">{{ dateText }}</p>
+                                    <ThePieChartThree v-if="visibleChart" :controllerInfoStorage="receivedData" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
                 <div class="info-block__block info-block__half info-block__errors dashboard-table">
                     <div v-if="thereIsEvents" class="there-is-data">Нет событий за период</div>
@@ -421,7 +446,9 @@ export default {
                 cversion: '',
                 mversion: '',
                 typeconnect: ''
-            }
+            },
+
+            parametersStorage: []
         }
     },
     methods: {
@@ -1066,7 +1093,7 @@ export default {
             });
 
         // Параметры устройства (таблица с номерами регистра)
-        axios.get(`http://cloud.io-tech.ru/api/devices/${this.controllerId}/flexdata/`,
+        axios.get(`http://e-mon.io-tech.ru/api/devices/${this.controllerId}/flexdata/`,
             {
                 headers: { 'Authorization': `Token ${sessionStorage.getItem('token')}` }
             }).then((response) => {
@@ -1535,7 +1562,6 @@ export default {
 }
 
 .pie-container canvas {
-    padding: 24px;
     width: 100% !important;
     height: 100% !important;
 }
@@ -1571,12 +1597,14 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 0 !important;
 }
 
 .pie-value {
     position: absolute;
     padding: 0 !important;
-    font-size: 40px;
+    font-size: 26px;
     width: 100%;
     top: 35%;
     text-align: center;
@@ -1587,12 +1615,14 @@ export default {
 }
 
 .pie-voltage {
-    top: 33%;
+    top: 41%;
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .pie-value p {
     margin: 0;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .pie-last-time {
@@ -1633,6 +1663,10 @@ export default {
 .pies-block {
     display: flex;
     justify-content: space-between;
+}
+
+.pies-block h4 {
+    height: 48px !important;
 }
 
 .pies-block:first-child {
@@ -1955,9 +1989,14 @@ export default {
 }
 
 .pies-block__padding {
-    padding: 16px 16px 0px;
+    padding: 0px 12px 0px;
     height: 75%;
     overflow: hidden;
+    height: 100%;
+}
+
+.pies-block__padding h4 {
+    padding-top: 16px;
 }
 
 .info-block__block_ {
@@ -1966,11 +2005,7 @@ export default {
 }
 
 .info-block__block_ div {
-    padding: 16px;
-}
-
-.charge-level__margin {
-    margin-bottom: 35px !important;
+    padding: 12px;
 }
 
 .controller-info__containerone {
@@ -1988,6 +2023,20 @@ export default {
 
 .controller-info__block-title_par {
     margin: 0 !important;
+}
+
+.info-block__half-small {
+    width: 32%;
+}
+
+.info-block__half-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#pieVoltage {
+    margin-top: 20px;
 }
 
 @media (min-width: 1500px) {
@@ -2166,11 +2215,6 @@ export default {
 
     .info-block__second div {
         width: 29%;
-    }
-
-    .pie-container canvas {
-        width: 77% !important;
-        height: 77% !important;
     }
 
     .measured-at__dashboard-name {
