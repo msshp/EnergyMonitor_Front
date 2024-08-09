@@ -2,7 +2,8 @@
     <div class="pie-container">
         <p class="pie-last-time">{{ lastvalueTime }}</p>
         <canvas id="bat_cChart"></canvas>
-        <div class="pie-value">{{ value }} А</div>
+        <div class="pie-value pie-voltage">{{ value }}<p>ампер</p>
+        </div>
         <div class="sample-value">
             <div>0</div>
             <div>50</div>
@@ -15,7 +16,7 @@ import Chart from 'chart.js/auto';
 
 export default {
     props: {
-        controllerInfoStorage: Array,
+        controllerInfoStorage: Object,
         lastResult: Array
     },
     data() {
@@ -32,17 +33,19 @@ export default {
         }
     },
     mounted() {
-        let ctx = document.getElementById('bat_cChart');
-        let lastvalue = this.controllerInfoStorage[0];
 
-        if (lastvalue === undefined) {
+        let ctx = document.getElementById('bat_cChart');
+        let lastvalue = this.controllerInfoStorage;
+
+        if (lastvalue.status === null) {
             if (this.lastResult[0] !== undefined) {
                 this.lastvalueTime = this.lastResult[0].created_at;
                 this.value = this.lastResult[0].load_A_i;
             }
         } else {
-            this.lastvalueTime = lastvalue.created_at;
-            this.value = lastvalue.load_A_i;
+            let dateTitle = lastvalue.status.created_at.split(',');
+            this.lastvalueTime = dateTitle[0] + ' ' + dateTitle[1].slice(0, -3);
+            this.value = lastvalue.status.load_A_i;
         }
         // 0 - 50 А
         let a = this.value;

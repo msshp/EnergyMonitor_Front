@@ -16,7 +16,7 @@ import Chart from 'chart.js/auto';
 
 export default {
     props: {
-        controllerInfoStorage: Array,
+        controllerInfoStorage: Object,
         lastResult: Array
     },
     data() {
@@ -34,16 +34,17 @@ export default {
     },
     mounted() {
         let ctx = document.getElementById('pieVoltage');
-        let lastvalue = this.controllerInfoStorage[0];
+        let lastvalue = this.controllerInfoStorage;
 
-        if (lastvalue === undefined) {
+        if (lastvalue.status === null) {
             if (this.lastResult[0] !== undefined) {
                 this.lastvalueTime = this.lastResult[0].created_at;
                 this.value = this.lastResult[0].load_A_v;
             }
         } else {
-            this.lastvalueTime = lastvalue.created_at;
-            this.value = lastvalue.load_A_v;
+            let dateTitle = lastvalue.status.created_at.split(',');
+            this.lastvalueTime = dateTitle[0] + ' ' + dateTitle[1].slice(0, -3);
+            this.value = lastvalue.status.load_A_v;
         }
 
         // 0 - 300 вольт
@@ -80,7 +81,7 @@ export default {
             type: 'doughnut',
             data: chartdata,
             options: {
-                cutout: 65,
+                cutout: 90,
                 plugins: {
                     tooltip: {
                         enabled: false
@@ -102,9 +103,9 @@ export default {
 .sample-value {
     position: absolute;
     padding: 0 24px;
-    font-size: 15px;
-    width: 100%;
-    top: 61%;
+    font-size: 14px;
+    width: 84%;
+    top: 56%;
     display: flex;
     justify-content: space-between;
 }
@@ -134,6 +135,20 @@ export default {
     .sample-value div {
         width: 106px;
         font-size: 16px;
+    }
+}
+
+@media (min-width: 2200px) {
+    .sample-value div {
+        width: 170px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 2500px) {
+    .sample-value div {
+        width: 190px;
+        font-size: 20px;
     }
 }
 </style>

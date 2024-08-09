@@ -139,7 +139,7 @@
         <TheCommandsPage v-if="pages.commandsPageVisibility" />
         <TheReportsPage v-if="pages.reportsPageVisibility" />
         <TheControllerPage v-if="pages.controllerPageVisibility" :controllerId="controllerId" :access="access"
-          @deleteControllerFromList="openList" />
+          :controllerPageVisibility="pages.controllerPageVisibility" @deleteControllerFromList="openList" />
       </div>
     </div>
   </div>
@@ -470,6 +470,7 @@ export default {
       }
       this.pages.personalAreaPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openUserListPage() {
       for (let page in this.pages) {
@@ -477,6 +478,7 @@ export default {
       }
       this.pages.listUsersPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openMap() {
       for (let page in this.pages) {
@@ -484,6 +486,7 @@ export default {
       }
       this.pages.mapPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openControl() {
       for (let page in this.pages) {
@@ -491,6 +494,7 @@ export default {
       }
       this.pages.controlPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openProject() {
       for (let page in this.pages) {
@@ -498,6 +502,7 @@ export default {
       }
       this.pages.projectPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openList() {
       for (let page in this.pages) {
@@ -505,6 +510,7 @@ export default {
       }
       this.pages.listPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openSubscription() {
       for (let page in this.pages) {
@@ -512,6 +518,7 @@ export default {
       }
       this.pages.subscriptionPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openEvents() {
       for (let page in this.pages) {
@@ -519,6 +526,7 @@ export default {
       }
       this.pages.eventsPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openCommands() {
       for (let page in this.pages) {
@@ -526,6 +534,7 @@ export default {
       }
       this.pages.commandsPageVisibility = true;
       document.getElementById('page-content').classList.remove('overflow_hidden');
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility); // сохранение в хранилище Boolean страницы устройства (для обновления/не обновления статуса устройства)
     },
     openReports() {
       for (let page in this.pages) {
@@ -540,6 +549,8 @@ export default {
         this.pages[page] = false;
       }
       this.pages.controllerPageVisibility = true;
+      // to do
+      sessionStorage.setItem('controllerPage', this.pages.controllerPageVisibility);
       document.getElementById('page-content').classList.remove('overflow_hidden');
     },
     editAuthorizedUser(data) {

@@ -45,7 +45,7 @@ export default {
             type: 'doughnut',
             data: chartdata,
             options: {
-                cutout: 65,
+                cutout: 90,
                 plugins: {
                     tooltip: {
                         enabled: false

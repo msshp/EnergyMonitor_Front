@@ -56,50 +56,25 @@
         </div>
         <div class="dashboard-container" v-if="btns.dashBoardActive">
             <div class="info-block__first">
-                <div class="info-block__half info-block__half-cont">
+                <div class="info-block__half info-block__half-container">
                     <div class="pies-block">
-                        <div class="info-block__half-small">
+                        <div class="info-block__half">
                             <div class="info-block__block pies-block__padding">
                                 <h4 class="charge-level">Напряжение канал А</h4>
-                                <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
+                                <ThePieVoltage v-if="batCChart" :controllerInfoStorage="controllerInfo"
                                     :lastResult="lastResult" />
                             </div>
                         </div>
-                        <div class="info-block__half-small">
-                            <div class="info-block__block info-block__block_">
-                                <div>
-                                    <h4 class="charge-level charge-level__margin">Потребление канала А за период</h4>
-                                    <p class="pie-last-time">{{ dateText }}</p>
-                                    <ThePieChartTwo v-if="visibleChart" :controllerInfoStorage="receivedData" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info-block__half-small">
-                            <div class="info-block__block info-block__block_">
-                                <div>
-                                    <h4 class="charge-level">Суммарное потребление за все время канала А</h4>
-                                    <p class="pie-last-time">{{ dateText }}</p>
-                                    <ThePieChartThree v-if="visibleChart" :controllerInfoStorage="receivedData" />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="info-block__half">
+                        <div class="info-block__half">
                             <div class="info-block__block pies-block__padding">
                                 <h4 class="charge-level">Ток канала А</h4>
-                                <ThePieChart v-if="batCChart" :controllerInfoStorage="receivedData"
-                                    :lastResult="lastResult" />
-                            </div>
-                        </div> -->
-                    </div>
-                    <!-- <div class="pies-block">
-                        <div class="info-block__half-small">
-                            <div class="info-block__block pies-block__padding">
-                                <h4 class="charge-level">Напряжение канал А</h4>
-                                <ThePieVoltage v-if="batCChart" :controllerInfoStorage="receivedData"
+                                <ThePieChart v-if="batCChart" :controllerInfoStorage="controllerInfo"
                                     :lastResult="lastResult" />
                             </div>
                         </div>
-                        <div class="info-block__half-small">
+                    </div>
+                    <div class="pies-block">
+                        <div class="info-block__half">
                             <div class="info-block__block info-block__block_">
                                 <div>
                                     <h4 class="charge-level charge-level__margin">Потребление канала А за период</h4>
@@ -108,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="info-block__half-small">
+                        <div class="info-block__half">
                             <div class="info-block__block info-block__block_">
                                 <div>
                                     <h4 class="charge-level">Суммарное потребление за все время канала А</h4>
@@ -117,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="info-block__block info-block__half info-block__errors dashboard-table">
                     <div v-if="thereIsEvents" class="there-is-data">Нет событий за период</div>
@@ -366,7 +341,8 @@ export default {
     },
     props: {
         controllerId: Text,
-        access: Boolean
+        access: Boolean,
+        controllerPageVisibility: Boolean
     },
     data() {
         return {
@@ -459,6 +435,7 @@ export default {
             this.btns.dashBoardActive = true;
 
             this.drawControllerMap(this.controllerInfoStorage[0]);
+            this.getStatus();
         },
         settingsOn() {
             if (!this.btns.settingsActive) {
@@ -649,7 +626,7 @@ export default {
                     headers: { 'Authorization': `Token ${sessionStorage.getItem('token')}` }
                 }).then((response) => {
                     if (response.status === 200) {
-                        this.dashboardLastEvents = response.data.slice(0, 17);
+                        this.dashboardLastEvents = response.data.slice(0, 16);
 
                         if (this.dashboardLastEvents.length === 0) {
                             this.thereIsEvents = true; // показать блок «Нет событий за период
@@ -1052,33 +1029,48 @@ export default {
                     console.log(error);
                 });
             }
+        },
+        getStatus() {
+            clearTimeout(this.getStatus);
+            this.batCChart = false;
+            axios.get(`http://e-mon.io-tech.ru/api/devices/${this.controllerId}/`,
+                {
+                    headers: { 'Authorization': `Token ${sessionStorage.getItem('token')}` }
+                }).then((response) => {
+                    if (response.status === 200) {
+                        this.controllerInfo = response.data;
+
+                        let date = this.controllerInfo.created_at;
+                        let formatDate = date.split(',');
+                        this.controllerInfo.created_at = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
+                        this.coordNow = this.controllerInfo.gps;
+
+                        if (this.controllerInfo.coordinates_manually) {
+                            this.manualCoords = true; // ручное
+                        } else {
+                            this.autoSwitchCoords = true; // авто
+                        }
+
+                        if (this.btns.loadingDashboard) {
+                            this.showDay();
+                        }
+                        let str = sessionStorage.getItem('controllerPage');
+                        if (JSON.parse(str) && this.btns.dashBoardActive) { // если открыта страница контроллера и дашборд, запускать запрос на статус каждую минуту
+                            setTimeout(this.getStatus, 60000);
+                        }
+
+                        this.batCChart = true; // перерисовка графиков напряжение и ток
+                    }
+                }).catch((error) => {
+                    // обработка ошибки
+                    console.log(error);
+                });
         }
     },
     mounted() {
-        // Информация об устройстве
-        axios.get(`http://e-mon.io-tech.ru/api/devices/${this.controllerId}/`,
-            {
-                headers: { 'Authorization': `Token ${sessionStorage.getItem('token')}` }
-            }).then((response) => {
-                if (response.status === 200) {
-                    this.controllerInfo = response.data;
-
-                    let date = this.controllerInfo.created_at;
-                    let formatDate = date.split(',');
-                    this.controllerInfo.created_at = formatDate[0] + ' ' + formatDate[1].slice(0, -3);
-                    this.coordNow = this.controllerInfo.gps;
-
-                    if (this.controllerInfo.coordinates_manually) {
-                        this.manualCoords = true; // ручное
-                    } else {
-                        this.autoSwitchCoords = true; // авто
-                    }
-                    this.showDay();
-                }
-            }).catch((error) => {
-                // обработка ошибки
-                console.log(error);
-            });
+        // Информация об устройстве status
+        this.getStatus();
+        this.searchLastEntry();
 
         axios.get(`http://e-mon.io-tech.ru/api/devices/${this.controllerId}/gps/`,
             {
@@ -1481,6 +1473,7 @@ export default {
     font-size: 14px;
     text-transform: uppercase;
     text-align: center;
+    height: 30px;
 }
 
 .info-line__title-dashboard {
@@ -1532,7 +1525,7 @@ export default {
 .controller-data__dashboard-errors {
     overflow-y: hidden;
     overflow-x: hidden;
-    padding: 0 0 0 10px;
+    padding: 0 0 8px 10px;
 }
 
 .info-block__second div {
@@ -1562,11 +1555,13 @@ export default {
 }
 
 .pie-container canvas {
+    padding: 24px;
     width: 100% !important;
     height: 100% !important;
 }
 
-.info-block_line-charts {
+.info-block_line-charts,
+.info-block__half-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1597,32 +1592,28 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 0 !important;
 }
 
 .pie-value {
     position: absolute;
     padding: 0 !important;
-    font-size: 26px;
+    font-size: 32px;
     width: 100%;
     top: 35%;
     text-align: center;
 }
 
 .pie-energy {
-    top: 34%;
+    top: 38%;
 }
 
 .pie-voltage {
-    top: 41%;
-    font-size: 20px;
-    margin-left: 10px;
+    top: 35%;
 }
 
 .pie-value p {
-    margin: 0;
-    font-size: 16px;
+    margin: -4px 0 0 0;
+    font-size: 20px;
 }
 
 .pie-last-time {
@@ -1663,10 +1654,6 @@ export default {
 .pies-block {
     display: flex;
     justify-content: space-between;
-}
-
-.pies-block h4 {
-    height: 48px !important;
 }
 
 .pies-block:first-child {
@@ -1989,14 +1976,9 @@ export default {
 }
 
 .pies-block__padding {
-    padding: 0px 12px 0px;
+    padding: 16px 16px 0px;
     height: 75%;
     overflow: hidden;
-    height: 100%;
-}
-
-.pies-block__padding h4 {
-    padding-top: 16px;
 }
 
 .info-block__block_ {
@@ -2005,7 +1987,7 @@ export default {
 }
 
 .info-block__block_ div {
-    padding: 12px;
+    padding: 16px;
 }
 
 .controller-info__containerone {
@@ -2023,20 +2005,6 @@ export default {
 
 .controller-info__block-title_par {
     margin: 0 !important;
-}
-
-.info-block__half-small {
-    width: 32%;
-}
-
-.info-block__half-cont {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#pieVoltage {
-    margin-top: 20px;
 }
 
 @media (min-width: 1500px) {
@@ -2088,7 +2056,7 @@ export default {
     }
 
     .pie-energy {
-        top: 35%;
+        top: 39%;
     }
 
     .measured-at__dashboard {
@@ -2173,6 +2141,7 @@ export default {
 
     .pie-voltage {
         top: 36% !important;
+        font-size: 30px;
     }
 
     .pie-value {
@@ -2180,7 +2149,7 @@ export default {
     }
 
     .pie-energy {
-        top: 37%;
+        top: 39%;
     }
 
     .measured-at__dashboard-name {
@@ -2215,6 +2184,11 @@ export default {
 
     .info-block__second div {
         width: 29%;
+    }
+
+    .pie-container canvas {
+        width: 77% !important;
+        height: 77% !important;
     }
 
     .measured-at__dashboard-name {
